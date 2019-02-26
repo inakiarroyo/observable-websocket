@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "lib": ["es7", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6"
+  },
+  "include": [
+    "./dev/",
+    "./src/"
+  ],
+  "exclude": [
+    "**/__mocks__/*",
+    "**/__stubs__/*",
+    "**/test/",
+    "**/tests/",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "config",
+    "coverage",
+    "dist",
+    "node_modules",
+    "scripts"
+  ]
+}

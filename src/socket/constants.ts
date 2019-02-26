@@ -1,0 +1,10 @@
+export const PORT = 3000;
+export const DEFAULT_SOCKET_URL = `ws://127.0.0.1:${PORT}`;
+
+export const enum SOCKET_STATE {
+  CONNECTING, OPEN, CLOSING, CLOSED
+}
+
+export const enum SOCKET_EVENTS {
+  SUBSCRIBE_DATASOURCE_EVENT = 'SUBSCRIBE_DATASOURCE_EVENT'
+}
