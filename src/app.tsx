@@ -2,12 +2,9 @@ import * as React from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { Datasource } from './datasource';
+import { NotificationsPanel } from './notifications/notifications-panel';
 import { SocketProvider } from './socket/socket-context';
 import { DataSources } from './types';
-
-interface State {
-  messageHistory: string[];
-}
 
 const dataSources: DataSources = [
   {
@@ -20,38 +17,21 @@ const dataSources: DataSources = [
   }
 ];
 
-export class App extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
+export const App = () => (
+  <SocketProvider>
+    <section style={{display: 'flex'}}>
+      {
+        dataSources.map((dataSource) => (
+          <Datasource
+            key={uuid()}
+            title={dataSource.title}
+            image={dataSource.image}
+          />
+        ))
+      }
+    </section>
 
-    this.state = {
-      messageHistory: []
-    };
-  }
+    <NotificationsPanel />
 
-  public render() {
-    const { messageHistory } = this.state;
-
-    return (
-      <SocketProvider>
-        <section style={{display: 'flex'}}>
-          {
-            dataSources.map((dataSource) => (
-              <Datasource
-                key={uuid()}
-                title={dataSource.title}
-                image={dataSource.image}
-              />
-            ))
-          }
-        </section>
-
-        <div>
-          <h2>Message History</h2>
-          {messageHistory.map((message, index) => (<p key={index}>{message}</p>))}
-        </div>
-
-      </SocketProvider>
-    );
-  }
-}
+  </SocketProvider>
+);

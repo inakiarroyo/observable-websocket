@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import { SOCKET_EVENTS, SOCKET_STATE } from './socket/constants';
 import { InjectedWithSocketProps, withSocket } from './socket/socket-hoc';
+import { SocketEvent } from './socket/types';
 
 const styles = {
   wrapper: {
@@ -38,7 +39,6 @@ interface State {
 export class DatasourceBase extends React.Component<Props, State> {
 
   private datasourceId = uuid();
-  // private connectDatasource: any;
 
   constructor(props: Props) {
     super(props);
@@ -48,14 +48,10 @@ export class DatasourceBase extends React.Component<Props, State> {
       error: '',
       connectedCount: 0
     };
-
-    // this.connectDatasource = connectDatasource(props.socket!).bind(this, this.datasourceId);
   }
 
   public componentDidMount() {
     this.props.subscribe(SOCKET_EVENTS.SUBSCRIBE_DATASOURCE_EVENT, this.onMessageReceived);
-
-    // this.connectDatasource = connectDatasource(this.props.socket!).bind(this, this.datasourceId);
   }
 
   public componentWillUnmount() {
@@ -98,7 +94,7 @@ export class DatasourceBase extends React.Component<Props, State> {
     });
   }
 
-  private onMessageReceived = (eventData: any) => {
+  private onMessageReceived = (eventData: SocketEvent) => {
     const { action, data: { id, message } } = eventData;
 
     if (id !== this.datasourceId) {

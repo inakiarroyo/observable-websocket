@@ -4,3 +4,10 @@ export interface SocketEvent {
     [key: string]: any;
   };
 }
+
+export interface NotificationEvent extends SocketEvent {
+  data: {
+    id: string;
+    message: string;
+  };
+}
