@@ -1,6 +1,6 @@
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export type DataSources = Array<{
+export type DataSourcesMock = Array<{
   title: string, image: string
 }>;
 

@@ -1,37 +1,33 @@
 import * as React from 'react';
-import { v4 as uuid } from 'uuid';
 
-import { Datasource } from './datasources/datasource';
+import { Datasources } from './datasources/datasources';
 import { NotificationsPanel } from './notifications/notifications-panel';
 import { SocketProvider } from './socket/socket-context';
-import { DataSources } from './types';
+import { Styles } from './types';
 
-const dataSources: DataSources = [
-  {
-    title: 'Xero',
-    image: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Xero_software_logo.svg/1200px-Xero_software_logo.svg.png'
-  },
-  {
-    title: 'QuickBooks',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Intuit_QuickBooks_logo.png'
+const styles: Styles = {
+  wrapper: {
+    margin: '10px'
   }
-];
+};
+
+const refreshPage = () => {
+  window.location.reload();
+};
 
 export const App = () => (
   <SocketProvider>
-    <section style={{display: 'flex'}}>
-      {
-        dataSources.map((dataSource) => (
-          <Datasource
-            key={uuid()}
-            title={dataSource.title}
-            image={dataSource.image}
-          />
-        ))
-      }
+    <section style={styles.wrapper}>
+
+      <strong>
+        If you re-connect the Socket then
+        <button type="button" onClick={refreshPage}>
+          Reload
+        </button>
+      </strong>
+
+      <Datasources />
+      <NotificationsPanel />
     </section>
-
-    <NotificationsPanel />
-
   </SocketProvider>
 );

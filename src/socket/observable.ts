@@ -1,4 +1,5 @@
 import { ObservableEvent } from './observable-event';
+import { AnyFn } from './types';
 
 type EventMap = Map<string, ObservableEvent>;
 
@@ -17,7 +18,7 @@ export class Observable {
     }
   }
 
-  public subscribe(eventName: string, action: any) {
+  public subscribe(eventName: string, action: AnyFn) {
     let event = this.eventMap.get(eventName);
 
     if (!event) {
@@ -28,7 +29,7 @@ export class Observable {
     event.subscribeAction(action);
   }
 
-  public unSubscribe(eventName: string, action: any) {
+  public unSubscribe(eventName: string, action: AnyFn) {
     const event = this.eventMap.get(eventName);
 
     if (!event || !event.hasAction(action)) {

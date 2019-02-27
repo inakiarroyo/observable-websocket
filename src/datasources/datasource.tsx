@@ -1,5 +1,4 @@
 import * as React from 'react';
-import withStyles from 'react-jss';
 import { v4 as uuid } from 'uuid';
 
 import { SOCKET_EVENTS, SOCKET_STATE } from '../socket/constants';
@@ -13,18 +12,24 @@ const styles: Styles = {
     borderRadius: '5px',
     minHeight: '100px',
     maxWidth: '300px',
-    margin: '10px',
-    padding: '10px'
+    padding: '10px',
+    marginRight: '5px'
   },
   messageWrapper: {
-    backgroundColor: 'lightGray',
+    backgroundColor: '#e91e632e',
     padding: '5px',
     marginTop: '10px'
+  },
+  size: {
+    height: '50px'
+  },
+  counter: {
+    fontWeight: 300,
+    color: 'lightcoral'
   }
 };
 
 interface OwnProps {
-  // classes: any;
   title: string;
   image: string;
 }
@@ -60,18 +65,16 @@ export class DatasourceBase extends React.Component<Props, State> {
   }
 
   public render() {
-    // const { classes } = this.props;
     const { title, image, socketState } = this.props;
     const { message, socketResponseCount } = this.state;
 
     return (
-      // <section className={classes.wrapper}>
       <section style={styles.wrapper}>
         <h2>{title}</h2>
 
-        <img src={image} alt="" height="50px" />
+        <img src={image} alt="datasource logo" style={styles.size} />
 
-        <p>Socket server responses: {socketResponseCount}</p>
+        <p>Socket server responses: <span style={styles.counter}>{socketResponseCount}</span></p>
         <p>DatasourceId: {this.datasourceId}</p>
 
         <button
@@ -110,5 +113,3 @@ export class DatasourceBase extends React.Component<Props, State> {
 }
 
 export const Datasource = withSocket(DatasourceBase);
-
-// export const Datasource = withStyles(styles)(DatasourceWS);

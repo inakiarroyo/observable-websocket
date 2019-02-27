@@ -16,11 +16,11 @@ const styles: Styles = {
     overflow: 'scroll'
   },
   odd: {
-    backgroundColor: 'lightGray',
+    backgroundColor: '#ffc1072e',
     padding: '5px'
   },
   even: {
-    backgroundColor: 'white',
+    backgroundColor: '#e91e632e',
     padding: '5px'
   },
   counter: {
@@ -61,7 +61,7 @@ export class NotificationsPanelBase extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <h2>
-          Notifications
+          System Notifications
           {notificationHistory && (<span style={styles.counter}>{notificationHistory.length}</span>)}
         </h2>
 

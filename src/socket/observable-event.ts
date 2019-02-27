@@ -1,6 +1,8 @@
+import { AnyFn } from './types';
+
 export class ObservableEvent {
   private eventName: string;
-  private actions: any[];
+  private actions: AnyFn[];
 
   constructor(eventName: string) {
     this.eventName = eventName;
@@ -11,15 +13,15 @@ export class ObservableEvent {
     return this.actions.length <= 0;
   }
 
-  public hasAction(action: any) {
+  public hasAction(action: AnyFn) {
     return this.actions.indexOf(action) > -1;
   }
 
-  public subscribeAction(action: any) {
+  public subscribeAction(action: AnyFn) {
     this.actions.push(action);
   }
 
-  public unSubscribeAction(action: any) {
+  public unSubscribeAction(action: AnyFn) {
     const index = this.actions.indexOf(action);
 
     if (index > -1) {

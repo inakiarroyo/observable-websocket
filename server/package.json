@@ -1,0 +1,13 @@
+{
+  "name": "websockets",
+  "version": "0.0.1",
+  "main": "socket-server.js",
+  "scripts": {
+    "start": "nodemon ./socket-server.js"
+  },
+  "dependencies": {
+    "nodemon": "^1.18.10",
+    "uuid": "^3.3.2",
+    "ws": "^6.1.4"
+  }
+}

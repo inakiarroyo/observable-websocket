@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DEFAULT_SOCKET_URL, SOCKET_STATE } from './constants';
 import { Observable } from './observable';
-import { SocketEvent } from './types';
+import { AnyFn, SocketEvent } from './types';
 
 export const SocketContext = React.createContext({});
 
@@ -15,9 +15,9 @@ interface Props {
 
 export interface SocketState {
   socketState: number;
-  publish: any;
-  subscribe: any;
-  unSubscribe: any;
+  publish: AnyFn;
+  subscribe: AnyFn;
+  unSubscribe: AnyFn;
 }
 
 export class SocketProvider extends React.Component<Props, SocketState> {
