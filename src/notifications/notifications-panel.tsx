@@ -4,8 +4,9 @@ import { v4 as uuid } from 'uuid';
 import { SOCKET_EVENTS } from '../socket/constants';
 import { InjectedWithSocketProps, withSocket } from '../socket/socket-hoc';
 import { NotificationEvent } from '../socket/types';
+import { Styles } from '../types';
 
-const styles = {
+const styles: Styles = {
   wrapper: {
     border: '1px solid gray',
     borderRadius: '5px',
@@ -21,6 +22,11 @@ const styles = {
   even: {
     backgroundColor: 'white',
     padding: '5px'
+  },
+  counter: {
+    fontWeight: 300,
+    color: 'lightcoral',
+    paddingLeft: '5px'
   }
 };
 
@@ -54,18 +60,22 @@ export class NotificationsPanelBase extends React.Component<Props, State> {
 
     return (
       <React.Fragment>
-        <h2>Notifications</h2>
+        <h2>
+          Notifications
+          {notificationHistory && (<span style={styles.counter}>{notificationHistory.length}</span>)}
+        </h2>
 
         <section style={styles.wrapper}>
           {
             notificationHistory.map((notification: NotificationEvent, index: number) => {
               const typeRow = index % 2 === 0 ? 'even' : 'odd'; // tslint:disable-line:no-magic-numbers
-              const { action, data: { message } } = notification;
+              const { action, data: { message, lastUpdated } } = notification;
 
               return (
                 <div key={uuid()} style={styles[typeRow]}>
                   <p>Action: {action}</p>
                   <p>Message: {message}</p>
+                  <p>Last Updated: {lastUpdated}</p>
                 </div>
               );
             })

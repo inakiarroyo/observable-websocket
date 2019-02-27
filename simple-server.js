@@ -7,38 +7,48 @@ const SOCKET_EVENTS = {
   MARKETING_NOTIFICATION_EVENT: 'MARKETING_NOTIFICATION_EVENT'
 }
 
+const getCurrentDateTime = () => (new Date().toISOString());
+
 const notifications = [
   {
     action: SOCKET_EVENTS.SYSTEM_NOTIFICATION_EVENT,
     data: {
       id: uuid.v4(),
-      message: 'Hello from socket server!!'
+      message: 'Hello from socket server!!',
+      lastUpdated: getCurrentDateTime()
     }
   },
   {
     action: SOCKET_EVENTS.SYSTEM_NOTIFICATION_EVENT,
     data: {
       id: uuid.v4(),
-      message: 'Hey, improve your user experience with our new UI!!'
+      message: 'Hey, improve your user experience with our new UI!!',
+      lastUpdated: getCurrentDateTime()
     }
   },
   {
     action: SOCKET_EVENTS.MARKETING_NOTIFICATION_EVENT,
     data: {
       id: uuid.v4(),
-      message: 'Hey, reduce cost with our new plan!!'
+      message: 'Hey, reduce cost with our new plan!!',
+      lastUpdated: getCurrentDateTime()
     }
   },
   {
     action: SOCKET_EVENTS.MARKETING_NOTIFICATION_EVENT,
     data: {
       id: uuid.v4(),
-      message: 'Hey, have you seen our new offerts...??'
+      message: 'Hey, have you seen our new offerts...??',
+      lastUpdated: getCurrentDateTime()
     }
   }
 ];
 
-const getRandomNotification = () => (notifications[Math.floor(Math.random() * notifications.length)]);
+const getRandomNotification = () => {
+  const notification = notifications[Math.floor(Math.random() * notifications.length)];
+  notification.data.lastUpdated = getCurrentDateTime();
+  return notification;
+};
 
 const wss = new WebSocket.Server({ port: 3000 });
 
@@ -57,7 +67,7 @@ wss.on('connection', function connection(ws) {
           action,
           data: {
             id: data.id,
-            message: `The DataSource '${data.id}' has been connected!!`
+            message: `[${getCurrentDateTime()}] The DataSource '${data.id}' has been connected!!`,
           }
         }));
       }, 500);

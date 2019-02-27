@@ -2,11 +2,12 @@ import * as React from 'react';
 import withStyles from 'react-jss';
 import { v4 as uuid } from 'uuid';
 
-import { SOCKET_EVENTS, SOCKET_STATE } from './socket/constants';
-import { InjectedWithSocketProps, withSocket } from './socket/socket-hoc';
-import { SocketEvent } from './socket/types';
+import { SOCKET_EVENTS, SOCKET_STATE } from '../socket/constants';
+import { InjectedWithSocketProps, withSocket } from '../socket/socket-hoc';
+import { SocketEvent } from '../socket/types';
+import { Styles } from '../types';
 
-const styles = {
+const styles: Styles = {
   wrapper: {
     border: '1px solid gray',
     borderRadius: '5px',
@@ -33,7 +34,7 @@ type Props = OwnProps & InjectedWithSocketProps;
 interface State {
   message: string;
   error: string;
-  connectedCount: number;
+  socketResponseCount: number;
 }
 
 export class DatasourceBase extends React.Component<Props, State> {
@@ -46,7 +47,7 @@ export class DatasourceBase extends React.Component<Props, State> {
     this.state = {
       message: '',
       error: '',
-      connectedCount: 0
+      socketResponseCount: 0
     };
   }
 
@@ -61,7 +62,7 @@ export class DatasourceBase extends React.Component<Props, State> {
   public render() {
     // const { classes } = this.props;
     const { title, image, socketState } = this.props;
-    const { message, connectedCount } = this.state;
+    const { message, socketResponseCount } = this.state;
 
     return (
       // <section className={classes.wrapper}>
@@ -70,7 +71,7 @@ export class DatasourceBase extends React.Component<Props, State> {
 
         <img src={image} alt="" height="50px" />
 
-        <p>Times connected: {connectedCount}</p>
+        <p>Socket server responses: {socketResponseCount}</p>
         <p>DatasourceId: {this.datasourceId}</p>
 
         <button
@@ -95,7 +96,7 @@ export class DatasourceBase extends React.Component<Props, State> {
   }
 
   private onMessageReceived = (eventData: SocketEvent) => {
-    const { action, data: { id, message } } = eventData;
+    const { data: { id, message } } = eventData;
 
     if (id !== this.datasourceId) {
       return;
@@ -103,9 +104,7 @@ export class DatasourceBase extends React.Component<Props, State> {
 
     this.setState((prevState) => ({
       message,
-      connectedCount: action === SOCKET_EVENTS.SUBSCRIBE_DATASOURCE_EVENT
-        ? prevState.connectedCount + 1
-        : prevState.connectedCount
+      socketResponseCount: prevState.socketResponseCount + 1
     }));
   }
 }

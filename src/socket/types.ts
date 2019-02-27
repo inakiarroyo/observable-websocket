@@ -9,5 +9,6 @@ export interface NotificationEvent extends SocketEvent {
   data: {
     id: string;
     message: string;
+    lastUpdated: string;
   };
 }

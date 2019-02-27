@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { Datasource } from './datasource';
+import { Datasource } from './datasources/datasource';
 import { NotificationsPanel } from './notifications/notifications-panel';
 import { SocketProvider } from './socket/socket-context';
 import { DataSources } from './types';
